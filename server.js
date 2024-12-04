@@ -1,12 +1,14 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 8080;
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5500' // Replace with your frontend's origin
+}));
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -19,24 +21,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-// Route to serve 'home.html' for '/home' path
-app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
-});
-
-// Route to serve 'home.html' for '/home.html' path
-app.get('/home.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
-});
-
 // Route to serve 'user-dashboard.html'
 app.get('/user-dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'user-dashboard.html'));
 });
 
-// Route to serve 'social-feed.html'
-app.get('/social-feed', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'social-feed.html'));
+// Route to serve 'admin-dashboard.html'
+app.get('/admin-dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html'));
 });
 
 // User data
