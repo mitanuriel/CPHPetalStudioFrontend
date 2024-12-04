@@ -101,29 +101,28 @@
             });
   }
 
-function goToDashboard() {
-  let dashboardUrl = role === 'admin' ? '/admin-dashboard.html' : '/user-dashboard.html';
-  fetch(`http://localhost:8080${dashboardUrl}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    },
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to access dashboard');
-    }
-    return response.text();
-  })
-  .then(html => {
-    document.body.innerHTML = html;
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    document.getElementById('message').textContent = 'Failed to access dashboard. Please ensure you are logged in.';
-    document.getElementById('message').className = 'error';
-  });
-}
+  function goToDashboard() {
+    fetch('http://localhost:8080/dashboard', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Failed to access dashboard');
+              }
+              return response.text();
+            })
+            .then(html => {
+              document.body.innerHTML = html;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              document.getElementById('message').textContent = 'Failed to access dashboard. Please ensure you are logged in.';
+              document.getElementById('message').className = 'error';
+            });
+  }
 </script>
 </body>
 </html>
