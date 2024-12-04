@@ -10,29 +10,37 @@
   <button class="btn btn-primary mb-3" onclick="showBouquetForm()">Add New Bouquet</button>
   <div id="bouquetForm" style="display: none;">
     <h3 id="formTitle">Add New Bouquet</h3>
-    <form id="bouquetForm">
+    <form id="bouquetForm" novalidate>
       <input type="hidden" id="bouquetId">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" required>
+        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" required>
+        <div class="invalid-feedback">Please fill out this field.</div>
+        <small id="nameHelp" class="form-text text-muted">Enter the bouquet name.</small>
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" required></textarea>
+        <textarea class="form-control" id="description" aria-describedby="descriptionHelp" required></textarea>
+        <div class="invalid-feedback">Please fill out this field.</div>
+        <small id="descriptionHelp" class="form-text text-muted">Enter the bouquet description.</small>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" step="0.01" required>
+        <input type="number" class="form-control" id="price" step="0.01" aria-describedby="priceHelp" required>
+        <div class="invalid-feedback">Please fill out this field.</div>
+        <small id="priceHelp" class="form-text text-muted">Enter the bouquet price.</small>
       </div>
       <div class="mb-3">
         <label for="imageUrl" class="form-label">Image URL</label>
-        <input type="url" class="form-control" id="imageUrl">
+        <input type="url" class="form-control" id="imageUrl" aria-describedby="imageUrlHelp">
+        <small id="imageUrlHelp" class="form-text text-muted">Enter the image URL.</small>
       </div>
       <button type="submit" class="btn btn-primary">Save</button>
       <button type="button" class="btn btn-secondary" onclick="hideBouquetForm()">Cancel</button>
     </form>
   </div>
   <div id="bouquetList"></div>
+  <input type="text" id="searchBar" class="form-control mb-3" placeholder="Search bouquets..." oninput="filterBouquets()">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -45,6 +53,7 @@
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
   function loadBouquets() {
+    document.getElementById('loadingSpinner').style.display = 'block';
     axios.get('/api/bouquets')
             .then(function (response) {
               const bouquets = response.data;
@@ -52,20 +61,23 @@
               bouquetList.innerHTML = '<h3>Bouquet List</h3>';
               bouquets.forEach(bouquet => {
                 bouquetList.innerHTML += `
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">${bouquet.name}</h5>
-                                    <p class="card-text">${bouquet.description}</p>
-                                    <p class="card-text">Price: $${bouquet.price}</p>
-                                    <button class="btn btn-warning" onclick="editBouquet(${bouquet.id})">Edit</button>
-                                    <button class="btn btn-danger" onclick="deleteBouquet(${bouquet.id})">Delete</button>
-                                </div>
-                            </div>
-                        `;
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">${bouquet.name}</h5>
+                <p class="card-text">${bouquet.description}</p>
+                <p class="card-text">Price: $${bouquet.price}</p>
+                <button class="btn btn-warning" onclick="editBouquet(${bouquet.id})">Edit</button>
+                <button class="btn btn-danger" onclick="deleteBouquet(${bouquet.id})">Delete</button>
+              </div>
+            </div>
+          `;
               });
             })
             .catch(function (error) {
               console.error('Error fetching bouquets:', error);
+            })
+            .finally(function () {
+              document.getElementById('loadingSpinner').style.display = 'none';
             });
   }
 
@@ -116,6 +128,10 @@
 
   document.getElementById('bouquetForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    if (!this.checkValidity()) {
+      this.classList.add('was-validated');
+      return;
+    }
     const bouquet = {
       id: document.getElementById('bouquetId').value,
       name: document.getElementById('name').value,
@@ -141,5 +157,3 @@
 
   loadBouquets();
 </script>
-</body>
-</html>
