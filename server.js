@@ -3,9 +3,13 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
+const PORT = process.env.PORT || 5500;
 
 // Enable CORS for all routes
 app.use(cors());
+
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,7 +39,7 @@ app.get('/social-feed', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'social-feed.html'));
 });
 
-//User data
+// User data
 const users = [
     { username: 'user', password: 'password', role: 'user', token: 'user-token' },
     { username: 'admin', password: 'password', role: 'admin', token: 'admin-token' }
@@ -53,12 +57,6 @@ app.post('/api/auth/login', (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
-
-
-const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
