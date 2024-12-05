@@ -54,22 +54,26 @@
   </style>
 </head>
 <body>
+
 <h1>Login and Dashboard Access</h1>
+
 <div class="form-group">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username">
 </div>
+
 <div class="form-group">
   <label for="password">Password:</label>
   <input type="password" id="password" name="password">
 </div>
+
 <button onclick="login()">Login</button>
 <button onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
+
 <div id="message"></div>
 
 <script>
-  let token = '';
-
+  // Function to log in the user
   function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -88,7 +92,8 @@
               return response.json();
             })
             .then(data => {
-              token = data.token;
+              // Store token in localStorage for persistence
+              localStorage.setItem('jwt_token', data.token);
               document.getElementById('message').textContent = 'Logged in successfully';
               document.getElementById('message').className = 'success';
               document.getElementById('dashboardButton').style.display = 'inline-block';
@@ -101,11 +106,14 @@
             });
   }
 
+  // Function to go to the dashboard after successful login
   function goToDashboard() {
+    const token = localStorage.getItem('jwt_token');
+
     fetch('http://localhost:8080/dashboard', {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
       },
     })
             .then(response => {
@@ -115,6 +123,7 @@
               return response.text();
             })
             .then(html => {
+              // Display the dashboard page
               document.body.innerHTML = html;
             })
             .catch(error => {
@@ -124,5 +133,6 @@
             });
   }
 </script>
+
 </body>
 </html>
