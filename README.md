@@ -10,7 +10,7 @@ Cross-Origin Resource Sharing (CORS).
 ## Instructions to Run the Project
 ### 1. Clone the Repository
 ```bash
-git clone <repository_url>
+git clone [<repository_url>](https://github.com/Driconaari/CPHPetalStudioFrontend.git)
 cd <repository_folder>
 ```
 ### 2. Install HTTP Server
