@@ -9,103 +9,76 @@
 
 </head>
 <body>
-
-<div class="login-container">
-  <div class="login-card">
-    <div class="card-left">
-      <div class="image-cover">
-        <img src="/public/images/lizzie-A4YhZ3Fe6rA-unsplash.jpg" alt="Decorative Furniture Image">
-      </div>
-    </div>
-    <div class="card-right">
-      <h2 class="welcome">Welcome to Petal Studio</h2>
-      <form action="#" method="POST">
-          <div class="form-group">
-  <label for="username">Username or Email:</label>
+<h1>Login and Dashboard Access</h1>
+<div class="form-group">
+  <label for="username">Username:</label>
   <input type="text" id="username" name="username">
 </div>
 <div class="form-group">
   <label for="password">Password:</label>
   <input type="password" id="password" name="password">
 </div>
-  <div class="actions">
-    <button type="submit" class="btn" onclick="login()">Sign in</button>
-    <button onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
-    <div id="message"></div>
-  </div>
-        <div class="or-divider">or</div>
+<button onclick="login()">Login</button>
+<div id="message"></div>
 
-        <div class="create-account">
-          <p>New to Petal Studio? <a href="#">Create Account</a></p>
-        </div>
-      </form>
+</div>
+<div class="or-divider">or</div>
+
+<div class="create-account">
+    <p>New to Petal Studio? <a href="#">Create Account</a></p>
+</div>
+</form>
 
 
 </div>
-  </div>
-  </div>
+</div>
+</div>
 
 <div class="image-credit">
-  Photo by <a href="https://x.com/amianyuhua">Xinyu Li</a> on <a href="https://unsplash.com/photos/bouquet-of-white-and-pink-flowers-in-basket-A4YhZ3Fe6rA">Unsplash</a>
+    Photo by <a href="https://x.com/amianyuhua">Xinyu Li</a> on <a href="https://unsplash.com/photos/bouquet-of-white-and-pink-flowers-in-basket-A4YhZ3Fe6rA">Unsplash</a>
 </div>
 
-
 <script>
-  let token = '';
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-  function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    })
+        fetch('http://localhost:8080/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
             .then(response => {
-              if (!response.ok) {
-                throw new Error('Login failed');
-              }
-              return response.json();
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
             })
             .then(data => {
-              token = data.token;
-              document.getElementById('message').textContent = 'Logged in successfully';
-              document.getElementById('message').className = 'success';
-              document.getElementById('dashboardButton').style.display = 'inline-block';
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              document.getElementById('message').textContent = 'Login failed. Please check your credentials.';
-              document.getElementById('message').className = 'error';
-              document.getElementById('dashboardButton').style.display = 'none';
-            });
-  }
+                const token = data.token;
+                const role = data.role; // User's role from the API response
 
-  function goToDashboard() {
-    fetch('http://localhost:8080/dashboard', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
-    })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Failed to access dashboard');
-              }
-              return response.text();
-            })
-            .then(html => {
-              document.body.innerHTML = html;
+                // Store the token for future use
+                localStorage.setItem('jwt_token', token);
+
+                // Redirect to the correct dashboard based on the user's role
+                if (role === 'ROLE_ADMIN') {
+                    window.location.href = '/admin-dashboard.html';
+                } else if (role === 'ROLE_USER') {
+                    window.location.href = '/user-dashboard.html';
+                } else {
+                    document.getElementById('message').textContent = 'Unknown role!';
+                    document.getElementById('message').className = 'error';
+                }
             })
             .catch(error => {
-              console.error('Error:', error);
-              document.getElementById('message').textContent = 'Failed to access dashboard. Please ensure you are logged in.';
-              document.getElementById('message').className = 'error';
+                console.error('Error:', error);
+                document.getElementById('message').textContent = 'Login failed. Please check your credentials.';
+                document.getElementById('message').className = 'error';
             });
-  }
+    }
 </script>
 </body>
 </html>
