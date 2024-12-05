@@ -31,6 +31,11 @@ app.get('/admin-dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html'));
 });
 
+// Route to serve 'view.html' for '/bouquets/view' path
+app.get('/bouquets/view', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bouquets', 'view.html'));
+});
+
 // User data
 const users = [
     { username: 'user', password: 'password', role: 'user', token: 'user-token' },
