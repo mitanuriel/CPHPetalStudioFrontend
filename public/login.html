@@ -1,49 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <title>Flower Haven Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Flower Haven Login</title>
 </head>
+
 <body>
 <!-- Header -->
 <header>
-  CPH Petal Studio
-  <p>Your trusted online flower shop</p>
+    CPH Petal Studio
+    <p>Your trusted online flower shop</p>
 </header>
 
 <!-- Login Form Container -->
 <div class="container">
-  <!-- Logo Section -->
+    <!-- Header Section -->
+    <h1>Welcome Back</h1>
+    <p>Please log in to continue to your CPH Petal Studio account.</p>
 
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="return false;">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <div class="actions">
+            <!-- Login Button -->
+            <button type="button" class="btn" onclick="login()">Login</button>
+            <!-- Dashboard Button -->
+            <button type="button" onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
+        </div>
+    </form>
 
-  <!-- Header Section -->
-  <h1>Welcome Back</h1>
-  <p>Please log in to continue to your CPH Petal Studio account.</p>
-
-  <!-- Login Form -->
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" placeholder="Enter your username">
-  </div>
-
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="Enter your password">
-  </div>
-
-  <button onclick="login()">Login</button>
-  <button onclick="goToDashboard()" id="dashboardButton">Go to Dashboard</button>
-
-  <!-- Message Box -->
-  <div id="message"></div>
+    <!-- Message Box -->
+    <div id="message"></div>
 </div>
 
 <!-- Footer -->
 <div class="footer">
-  &copy; 2024 Flower Haven. <a href="#">Privacy Policy</a>
+    &copy; 2024 Flower Haven. <a href="#">Privacy Policy</a>
 </div>
+
+<!-- JavaScript -->
+<script>
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        fetch('http://localhost:8080/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const token = data.token;
+                const role = data.role; // User's role from the API response
+
+                // Store the token for future use
+                localStorage.setItem('jwt_token', token);
+
+                // Redirect to the correct dashboard based on the user's role
+                if (role === 'ROLE_ADMIN') {
+                    window.location.href = '/admin-dashboard.html';
+                } else if (role === 'ROLE_USER') {
+                    window.location.href = '/user-dashboard.html';
+                } else {
+                    document.getElementById('message').textContent = 'Unknown role!';
+                    document.getElementById('message').className = 'error';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('message').textContent = 'Login failed. Please check your credentials.';
+                document.getElementById('message').className = 'error';
+            });
+    }
+
+    function goToDashboard() {
+        window.location.href = '/dashboard';
+    }
+</script>
 </body>
+
 </html>

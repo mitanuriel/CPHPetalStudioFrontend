@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 8080;
 
 // Enable CORS for all routes
 app.use(cors({
-  origin: 'http://localhost:5500' // Replace with your frontend's origin
+    origin: 'http://localhost:5500' // Replace with your frontend's origin
 }));
 
 // Middleware to parse JSON request bodies
@@ -31,21 +31,31 @@ app.get('/admin-dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin-dashboard.html'));
 });
 
+// Route to serve 'view.html' for '/bouquets/view' path
+app.get('/bouquets/view', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bouquets', 'view.html'));
+});
+// Route to serve 'list.html' for '/bouquets/list' path
+app.get('/bouquets/list', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bouquets', 'list.html'));
+});
+
+
 // User data
 const users = [
-    { username: 'user', password: 'password', role: 'user', token: 'user-token' },
-    { username: 'admin', password: 'password', role: 'admin', token: 'admin-token' }
+    {username: 'user', password: 'password', role: 'user', token: 'user-token'},
+    {username: 'admin', password: 'password', role: 'admin', token: 'admin-token'}
 ];
 
 // Login route
 app.post('/api/auth/login', (req, res) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
     const user = users.find(u => u.username === username && u.password === password);
 
     if (user) {
-        res.json({ token: user.token, role: user.role });
+        res.json({token: user.token, role: user.role});
     } else {
-        res.status(401).json({ message: 'Invalid credentials' });
+        res.status(401).json({message: 'Invalid credentials'});
     }
 });
 
