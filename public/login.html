@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/public/css/styles.css">
-
-  <title>Login and Dashboard Access</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Login and Dashboard Access</title>
 </head>
+
 <body>
-<h1>Login and Dashboard Access</h1>
-<div class="form-group">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username">
+<div class="login-container">
+    <div class="login-card">
+        <div class="card-left">
+            <div class="image-cover">
+                <img src="/images/lizzie-A4YhZ3Fe6rA-unsplash.jpg" alt="Decorative Furniture Image">
+            </div>
+        </div>
+        <div class="card-right">
+            <h2 class="welcome">Welcome to Petal Studio</h2>
+            <!-- Form integrated with backend -->
+            <form id="loginForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="username">Username or Email:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="actions">
+                    <!-- Submit button for the backend -->
+                    <button type="button" class="btn" onclick="login()">Sign in</button>
+                    <!-- Button shown after login -->
+                    <button type="button" onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
+                    <div id="message"></div>
+                </div>
+            </form>
+            <div class="or-divider">or</div>
+            <div class="create-account">
+                <p>New to Petal Studio? <a href="#">Create Account</a></p>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="form-group">
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password">
-</div>
-<button onclick="login()">Login</button>
-<div id="message"></div>
-
-</div>
-<div class="or-divider">or</div>
-
-<div class="create-account">
-    <p>New to Petal Studio? <a href="#">Create Account</a></p>
-</div>
-</form>
-
-
-</div>
-</div>
-</div>
-
 <div class="image-credit">
-    Photo by <a href="https://x.com/amianyuhua">Xinyu Li</a> on <a href="https://unsplash.com/photos/bouquet-of-white-and-pink-flowers-in-basket-A4YhZ3Fe6rA">Unsplash</a>
+    Photo by <a href="https://x.com/amianyuhua">Xinyu Li</a> on
+    <a href="https://unsplash.com/photos/bouquet-of-white-and-pink-flowers-in-basket-A4YhZ3Fe6rA">Unsplash</a>
 </div>
 
+<!-- JavaScript -->
 <script>
     function login() {
         const username = document.getElementById('username').value;
@@ -79,6 +90,11 @@
                 document.getElementById('message').className = 'error';
             });
     }
+
+    function goToDashboard() {
+        window.location.href = '/dashboard';
+    }
 </script>
 </body>
+
 </html>
