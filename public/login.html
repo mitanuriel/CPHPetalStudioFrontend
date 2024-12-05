@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login and Dashboard Access</title>
+  <title>Login</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,33 +47,22 @@
       background-color: #f8d7da;
       color: #721c24;
     }
-    #dashboardButton {
-      display: none;
-      background-color: #28a745;
-    }
   </style>
 </head>
 <body>
-
-<h1>Login and Dashboard Access</h1>
-
+<h1>Login</h1>
 <div class="form-group">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username">
 </div>
-
 <div class="form-group">
   <label for="password">Password:</label>
   <input type="password" id="password" name="password">
 </div>
-
 <button onclick="login()">Login</button>
-<button onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
-
 <div id="message"></div>
 
 <script>
-  // Function to log in the user
   function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -92,47 +81,28 @@
               return response.json();
             })
             .then(data => {
-              // Store token in localStorage for persistence
-              localStorage.setItem('jwt_token', data.token);
-              document.getElementById('message').textContent = 'Logged in successfully';
-              document.getElementById('message').className = 'success';
-              document.getElementById('dashboardButton').style.display = 'inline-block';
+              const token = data.token;
+              const role = data.role; // User's role from the API response
+
+              // Store the token for future use
+              localStorage.setItem('jwt_token', token);
+
+              // Redirect to the correct dashboard based on the user's role
+              if (role === 'ROLE_ADMIN') {
+                window.location.href = '/admin-dashboard.html';
+              } else if (role === 'ROLE_USER') {
+                window.location.href = '/user-dashboard.html';
+              } else {
+                document.getElementById('message').textContent = 'Unknown role!';
+                document.getElementById('message').className = 'error';
+              }
             })
             .catch(error => {
               console.error('Error:', error);
               document.getElementById('message').textContent = 'Login failed. Please check your credentials.';
               document.getElementById('message').className = 'error';
-              document.getElementById('dashboardButton').style.display = 'none';
-            });
-  }
-
-  // Function to go to the dashboard after successful login
-  function goToDashboard() {
-    const token = localStorage.getItem('jwt_token');
-
-    fetch('http://localhost:8080/dashboard', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-      },
-    })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Failed to access dashboard');
-              }
-              return response.text();
-            })
-            .then(html => {
-              // Display the dashboard page
-              document.body.innerHTML = html;
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              document.getElementById('message').textContent = 'Failed to access dashboard. Please ensure you are logged in.';
-              document.getElementById('message').className = 'error';
             });
   }
 </script>
-
 </body>
 </html>
