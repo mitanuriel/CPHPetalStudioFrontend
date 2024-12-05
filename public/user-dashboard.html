@@ -4,72 +4,240 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-</head>
-<body class="bg-gray-100">
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-8">Welcome to Your Dashboard</h1>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #fff5f7; /* Light pink background */
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
 
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <h2 class="text-xl font-semibold mb-4">Your Account Information</h2>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    /* Card Styling */
+    .bg-white {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bg-white:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+
+    .grid-cols-1 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .text-gray-600 {
+      color: #6b7280;
+    }
+
+    .text-green-600 {
+      color: #28a745;
+    }
+
+    /* Button Styling */
+    a {
+      display: inline-block;
+      padding: 12px 18px;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    a:hover {
+      transform: scale(1.05);
+    }
+
+    /* Pink Toned Buttons */
+    a.bg-light-pink {
+      background-color: #ffadc6; /* Light Pink */
+    }
+
+    a.bg-light-pink:hover {
+      background-color: #ff90ae;
+    }
+
+    a.bg-medium-pink {
+      background-color: #ff6f91; /* Medium Pink */
+    }
+
+    a.bg-medium-pink:hover {
+      background-color: #ff4f73;
+    }
+
+    a.bg-dark-pink {
+      background-color: #d95573; /* Dark Pink */
+    }
+
+    a.bg-dark-pink:hover {
+      background-color: #c04062;
+    }
+
+    /* Featured Bouquets Section */
+    .bouquet-card {
+      overflow: hidden;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bouquet-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .bouquet-card img {
+      transition: transform 0.3s ease;
+    }
+
+    .bouquet-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .bouquet-card .card-body {
+      padding: 15px;
+      background-color: #fff;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #fff;
+      color: #333;
+      font-size: 0.9rem;
+      border-top: 1px solid #ddd;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #ff6f91;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      color: #ff4f73;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome to Your Dashboard</h1>
+
+  <div class="section bg-white shadow-md rounded">
+    <h2>Your Account Information</h2>
     <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
     <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
     <p><strong>Account Created:</strong> <span th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"></span></p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h2 class="text-xl font-semibold mb-4">Browse Bouquets</h2>
+  <div class="section grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white shadow-md rounded">
+      <h2>Browse Bouquets</h2>
       <p>Explore our beautiful selection of bouquets.</p>
-      <a href="/bouquets" class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        View Bouquets
-      </a>
+      <a href="/bouquets" class="bg-light-pink">View Bouquets</a>
     </div>
 
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
+    <div class="bg-white shadow-md rounded">
+      <h2>Your Cart</h2>
       <p>View and manage items in your cart.</p>
-      <a href="/cart" class="mt-4 inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-        Go to Cart
-      </a>
+      <a href="/cart" class="bg-medium-pink">Go to Cart</a>
     </div>
 
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-      <h2 class="text-xl font-semibold mb-4">Go to Shop</h2>
+    <div class="bg-white shadow-md rounded">
+      <h2>Go to Shop</h2>
       <p>Visit our main shop page to see all products.</p>
-      <a href="/shop" class="mt-4 inline-block bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-        Go to Shop
-      </a>
+      <a href="/shop" class="bg-dark-pink">Go to Shop</a>
     </div>
   </div>
 
-  <div class="mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8">
-    <h2 class="text-xl font-semibold mb-4">Account Management</h2>
-    <a href="/account/edit" class="mr-4 inline-block bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-      Edit Profile
-    </a>
-    <a href="/account/change-password" class="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-      Change Password
-    </a>
+  <div class="section bg-white shadow-md rounded">
+    <h2>Account Management</h2>
+    <a href="/account/edit" class="bg-medium-pink">Edit Profile</a>
+    <a href="/account/change-password" class="bg-dark-pink">Change Password</a>
   </div>
 
-  <div class="mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8">
-    <h2 class="text-2xl font-semibold mb-6">Featured Bouquets</h2>
+  <div class="section bg-white shadow-md rounded">
+    <h2>Featured Bouquets</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div th:each="bouquet : ${bouquets}" class="bg-white rounded-lg shadow-md overflow-hidden">
-        <img th:src="${bouquet.imageUrl}" alt="Bouquet" class="w-full h-48 object-cover" />
-        <div class="p-4">
-          <h3 class="text-lg font-semibold mb-2" th:text="${bouquet.name}"></h3>
-          <p class="text-gray-600 mb-2" th:text="${bouquet.description}"></p>
-          <p class="text-lg font-bold text-green-600" th:text="${'$' + #numbers.formatDecimal(bouquet.price, 1, 2)}"></p>
-          <a th:href="@{'/bouquets/' + ${bouquet.id}}" class="mt-2 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            View Details
-          </a>
+      <div th:each="bouquet : ${bouquets}" class="bouquet-card">
+        <img th:src="${bouquet.imageUrl}" alt="Bouquet" />
+        <div class="card-body">
+          <h3 th:text="${bouquet.name}"></h3>
+          <p class="text-gray-600" th:text="${bouquet.description}"></p>
+          <p class="text-green-600" th:text="${'$' + #numbers.formatDecimal(bouquet.price, 1, 2)}"></p>
+          <a th:href="@{'/bouquets/' + ${bouquet.id}}" class="bg-light-pink">View Details</a>
         </div>
       </div>
     </div>
   </div>
-
 </div>
+
+<footer>
+  &copy; 2024 CPH Petal Studio. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
+</footer>
 </body>
 </html>
