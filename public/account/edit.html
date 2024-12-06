@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #fff5f7; /* Light pink background */
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    /* Card Styling */
+    .bg-white {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bg-white:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+
+    .grid-cols-1 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 18px;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    a:hover {
+      transform: scale(1.05);
+    }
+
+    /* Pink Toned Buttons */
+    a.bg-light-pink {
+      background-color: #ffadc6; /* Light Pink */
+    }
+
+    a.bg-light-pink:hover {
+      background-color: #ff90ae;
+    }
+
+    a.bg-medium-pink {
+      background-color: #ff6f91; /* Medium Pink */
+    }
+
+    a.bg-medium-pink:hover {
+      background-color: #ff4f73;
+    }
+
+    a.bg-dark-pink {
+      background-color: #d95573; /* Dark Pink */
+    }
+
+    a.bg-dark-pink:hover {
+      background-color: #c04062;
+    }
+
+    footer {
+      background-color: #fff;
+      color: #333;
+      font-size: 0.9rem;
+      border-top: 1px solid #ddd;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #ff6f91;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      color: #ff4f73;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Edit Your Profile</h1>
+
+  <div class="section bg-white shadow-md rounded">
+    <h2>Update Account Information</h2>
+
+    <!-- Form for editing profile -->
+    <form th:action="@{/account/edit}" method="POST">
+      <div>
+        <label for="email"><strong>Email:</strong></label>
+        <input type="email" id="email" name="email" th:value="${user.email}" placeholder="Enter your email" required />
+      </div>
+
+      <div>
+        <button type="submit" class="bg-medium-pink">Save Changes</button>
+      </div>
+    </form>
+
+  <a href="/dashboard" class="bg-light-pink">Back to Dashboard</a>
+</div>
+
+<footer>
+  &copy; 2024 CPH Petal Studio. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
+</footer>
+
+</body>
+</html>
