@@ -143,22 +143,16 @@
     <h2>Update Account Information</h2>
 
     <!-- Form for editing profile -->
-    <form th:action="@{/account/edit}" th:object="${user}" method="POST">
-      <div>
-        <label for="username"><strong>Username:</strong></label>
-        <input type="text" id="username" th:field="*{username}" placeholder="Enter your username" required />
-      </div>
-
+    <form th:action="@{/account/edit}" method="POST">
       <div>
         <label for="email"><strong>Email:</strong></label>
-        <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
+        <input type="email" id="email" name="email" th:value="${user.email}" placeholder="Enter your email" required />
       </div>
 
       <div>
         <button type="submit" class="bg-medium-pink">Save Changes</button>
       </div>
     </form>
-  </div>
 
   <a href="/dashboard" class="bg-light-pink">Back to Dashboard</a>
 </div>
