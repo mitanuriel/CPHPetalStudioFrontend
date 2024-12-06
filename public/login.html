@@ -4,48 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <title>Login and Dashboard Access</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Flower Haven Login</title>
 </head>
 
 <body>
-<div class="login-container">
-    <div class="login-card">
-        <div class="card-left">
-            <div class="image-cover">
-                <img src="/images/lizzie-A4YhZ3Fe6rA-unsplash.jpg" alt="Decorative Furniture Image">
-            </div>
+<!-- Header -->
+<header>
+    CPH Petal Studio
+    <p>Your trusted online flower shop</p>
+</header>
+
+
+<!-- Login Form Container -->
+<div class="container">
+    <!-- Header Section -->
+    <h1>Welcome Back</h1>
+    <p>Please log in to continue to your CPH Petal Studio account.</p>
+
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="return false;">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
         </div>
-        <div class="card-right">
-            <h2 class="welcome">Welcome to Petal Studio</h2>
-            <!-- Form integrated with backend -->
-            <form id="loginForm" onsubmit="return false;">
-                <div class="form-group">
-                    <label for="username">Username or Email:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="actions">
-                    <!-- Submit button for the backend -->
-                    <button type="button" class="btn" onclick="login()">Sign in</button>
-                    <!-- Button shown after login -->
-                    <button type="button" onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
-                    <div id="message"></div>
-                </div>
-            </form>
-            <div class="or-divider">or</div>
-            <div class="create-account">
-                <p>New to Petal Studio? <a href="#">Create Account</a></p>
-            </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
         </div>
-    </div>
+        <div class="actions">
+            <!-- Login Button -->
+            <button type="button" class="btn" onclick="login()">Login</button>
+            <!-- Dashboard Button -->
+            <button type="button" onclick="goToDashboard()" id="dashboardButton" style="display:none;">Go to Dashboard</button>
+        </div>
+    </form>
+
+    <!-- Message Box -->
+    <div id="message"></div>
 </div>
-<div class="image-credit">
-    Photo by <a href="https://x.com/amianyuhua">Xinyu Li</a> on
-    <a href="https://unsplash.com/photos/bouquet-of-white-and-pink-flowers-in-basket-A4YhZ3Fe6rA">Unsplash</a>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2024 Flower Haven. <a href="#">Privacy Policy</a>
 </div>
 
 <!-- JavaScript -->
