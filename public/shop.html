@@ -1,228 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Shop</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="shop.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">CPH Petal Studio</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container mt-5">
-    <div class="row">
-
-        <div class="col-lg-3">
-            <div class="filter-section">
-                <h2>Filter Bouquets</h2>
-                <div class="filter-buttons">
-                    <button class="filter-button">Under 50$.</button>
-                    <button class="filter-button">Over  50$.</button>
-                </div>
-                <h2>Color Scheme</h2>
-                <div class="filter-buttons">
-                    <div class="filter-button">
-                        <span>Pink/Red Nuances</span>
-                        <div class="color-indicators">
-                            <div class="color-indicator color-red"></div>
-                            <div class="color-indicator color-pink"></div>
-                            <div class="color-indicator color-burgundy"></div>
-                        </div>
-                    </div>
-                    <div class="filter-button">
-                        <span>Multicolored</span>
-                        <div class="color-indicators">
-                            <div class="color-indicators color-purple"></div>
-                            <div class="color-indicator color-yellow"></div>
-                            <div class="color-indicator color-light"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-9">
-            <div class="row">
-
-                <div class="col-md-6 mb-4">
-                    <div class="card product-card position-relative">
-                        <span class="most-popular">Most Popular</span>
-                        <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-10/DEN_SOEDE_OMTANKE_HAND_173.jpg?itok=mwjwXwsK&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                             class="card-img-top" alt="Sweet Gesture">
-                        <div class="card-body">
-                            <h5 class="card-title">Sweet Gesture</h5>
-                            <p class="card-text">A bouquet filled with vibrant and delicate flowers.</p>
-                            <p class="card-text text-success">$49.99</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-6 mb-4">
-                    <div class="card product-card position-relative">
-                        <span class="most-popular">Most Popular</span>
-                        <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-09/DEN_VENLIGE_VINTERVERSION_HAND_v_0.jpg?itok=hqgIZwlU&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                             class="card-img-top" alt="Pastel Charm">
-                        <div class="card-body">
-                            <h5 class="card-title">Pastel Charm</h5>
-                            <p class="card-text">Soft pastel flowers to brighten any day.</p>
-                            <p class="card-text text-success">$44.99</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-        <!-- Product 4 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-05/580_Den%20betaenksomme_M_H1.jpg?itok=LsVuEk9y&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Blush Beauty">
-                <div class="card-body">
-                    <h5 class="card-title">Blush Beauty</h5>
-                    <p class="card-text">A blush-toned bouquet with stunning details.</p>
-                    <p class="card-text text-success">$39.99</p>
-                    <a href="/products/4" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 5 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2023-07/DEN_ROMANTISKE_LARGE_130.jpg?itok=RcHSaFaQ&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Golden Sunshine">
-                <div class="card-body">
-                    <h5 class="card-title">Golden Sunshine</h5>
-                    <p class="card-text">Bright sunflowers and daisies for a cheerful gift.</p>
-                    <p class="card-text text-success">$54.99</p>
-                    <a href="/products/5" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 6 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-10/DEN_SMUKKE_LYSEROEDE_LILJEBUKET_HAND_6284.jpg?itok=pzDgkrXA&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Bright Blossoms">
-                <div class="card-body">
-                    <h5 class="card-title">Bright Blossoms</h5>
-                    <p class="card-text">Cheerful mix of colorful spring flowers.</p>
-                    <p class="card-text text-success">$49.99</p>
-                    <a href="/products/6" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 7 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-06/DEN_SOEDE_OMTANKE_XL_173%20%281%29.jpg?itok=k-PYAgUw&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Classic Elegance">
-                <div class="card-body">
-                    <h5 class="card-title">Classic Elegance</h5>
-                    <p class="card-text">Elegant bouquet with timeless floral designs.</p>
-                    <p class="card-text text-success">$64.99</p>
-                    <a href="/products/7" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 8 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-09/DEN_HELT_RIGTIGE_HAND_v_1.jpg?itok=lYkFb_NR&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Spring Bliss">
-                <div class="card-body">
-                    <h5 class="card-title">Spring Bliss</h5>
-                    <p class="card-text">Vibrant spring blossoms for any celebration.</p>
-                    <p class="card-text text-success">$44.99</p>
-                    <a href="/products/8" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 9 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2022-12/2149_Den%20til%20Kaerligheden_AT_US.jpg?itok=P68N-XcP&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Romantic Roses">
-                <div class="card-body">
-                    <h5 class="card-title">Romantic Roses</h5>
-                    <p class="card-text">A classic arrangement of romantic red roses.</p>
-                    <p class="card-text text-success">$74.99</p>
-                    <a href="/products/9" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 10 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-02/BOXBUKET_MARK_STYLE_VERSION_02_MELLEM_SKU_545_1.jpg?itok=UGoPJ3qK&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Summer Love">
-                <div class="card-body">
-                    <h5 class="card-title">Summer Love</h5>
-                    <p class="card-text">A bouquet with fresh, warm summer tones.</p>
-                    <p class="card-text text-success">$49.99</p>
-                    <a href="/products/10" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 11 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-05/DEN_FORTRYLLENDE_MEDIUM_551.jpg?itok=g_YARWa9&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Winter Magic">
-                <div class="card-body">
-                    <h5 class="card-title">Winter Magic</h5>
-                    <p class="card-text">A seasonal bouquet with frosty winter flowers.</p>
-                    <p class="card-text text-success">$59.99</p>
-                    <a href="/products/11" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <!-- Product 12 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-08/FLORISTENS_KREATIVE_BUKET_I_FARVERIGE_NUANCER_MEDIUM_6752.jpg?itok=CewUtJnl&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50"
-                     class="card-img-top" alt="Autumn Charm">
-                <div class="card-body">
-                    <h5 class="card-title">Autumn Charm</h5>
-                    <p class="card-text">Warm tones of autumn in a delightful bouquet.</p>
-                    <p class="card-text text-success">$54.99</p>
-                    <a href="/products/12" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer>
-    &copy; 2024 Flower Shop. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,7 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/shop.css}">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="#">CPH Petal Studio</a>
@@ -249,6 +29,9 @@
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart ({{session.cart.size()}})</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -256,6 +39,7 @@
 
 <div class="container mt-5">
     <div class="row">
+        <!-- Sidebar for Filters -->
         <div class="col-lg-3">
             <div class="filter-section">
                 <h2>Filter Bouquets</h2>
@@ -285,6 +69,7 @@
             </div>
         </div>
 
+        <!-- Product Listing -->
         <div class="col-lg-9">
             <div class="row">
                 <div th:each="bouquet : ${bouquets}" class="col-md-4 mb-4">
@@ -295,7 +80,10 @@
                             <h5 class="card-title" th:text="${bouquet.name}">Bouquet Name</h5>
                             <p class="card-text" th:text="${bouquet.description}">Bouquet description</p>
                             <p class="card-text text-success" th:text="${'$' + #numbers.formatDecimal(bouquet.price, 1, 2)}">$0.00</p>
-                            <a th:href="@{/shop/{id}(id=${bouquet.id})}" class="btn btn-primary">View Details</a>
+                            <form th:action="@{/cart/add}" method="post">
+                                <input type="hidden" name="productId" th:value="${bouquet.id}" />
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
