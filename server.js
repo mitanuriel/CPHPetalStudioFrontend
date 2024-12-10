@@ -1,3 +1,5 @@
+
+/*
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -82,3 +84,6 @@ app.get('/api/user/profile', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+
+ */

@@ -150,6 +150,8 @@
 
         <!-- Display account creation date, formatted -->
         <p><strong>Account Created:</strong> <span id="createdAt"></span></p>
+
+        <a href="/logout" class="bg-dark-pink">Logout</a>
     </div>
 </div>
 <div class="section grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -185,6 +187,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Fetch profile data
         fetch('http://localhost:8080/api/user/profile', {
             method: 'GET',
             headers: {
@@ -200,11 +203,17 @@
             })
             .then(profile => {
                 console.log('Profile:', profile);
+
+                // Display the profile information in the HTML
+                document.getElementById('username').textContent = profile.username || 'N/A';
+                document.getElementById('email').textContent = profile.email || 'N/A';
+                document.getElementById('createdAt').textContent = new Date(profile.createdAt).toLocaleDateString() || 'N/A';
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     });
+
 </script>
 
 </body>
