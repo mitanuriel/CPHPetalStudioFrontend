@@ -135,6 +135,7 @@
     </style>
 </head>
 
+<body>
 <div class="container">
     <h1>Welcome to Your Dashboard</h1>
 
@@ -142,13 +143,13 @@
         <h2>Your Account Information</h2>
 
         <!-- Display username -->
-        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>Username:</strong> <span id="username"></span></p>
 
         <!-- Display email -->
-        <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
 
         <!-- Display account creation date, formatted -->
-        <p><strong>Account Created:</strong> <span th:text="${#dates.format(user.createdAt, 'yyyy-MM-dd')}"></span></p>
+        <p><strong>Account Created:</strong> <span id="createdAt"></span></p>
     </div>
 </div>
     <div class="section grid grid-cols-1 md:grid-cols-3 gap-4">

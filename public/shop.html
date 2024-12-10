@@ -108,7 +108,7 @@
                 event.preventDefault();
 
                 const bouquetId = event.target.getAttribute('data-id');
-                fetch('http://localhost:8080/shop/cart/add', {
+                fetch('http://localhost:8080/api/cart/add', {  // Change from /shop/cart/add to /api/cart/add
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -119,6 +119,7 @@
                         quantity: 1
                     })
                 })
+
                     .then(response => {
                         if (!response.ok) {
                             return response.text().then(err => {
@@ -166,6 +167,22 @@
                 updateCartCount(); // Initial update of the cart count
             }
         });
+
+        // Fetch and display user profile information
+        fetch('/api/user/profile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt_token') // Assuming you store the JWT in localStorage
+            }
+        })
+            .then(response => response.json())
+            .then(user => {
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('createdAt').textContent = new Date(user.createdAt).toLocaleString();
+            })
+            .catch(error => console.error('Error fetching user profile:', error));
     });
 </script>
 </body>
