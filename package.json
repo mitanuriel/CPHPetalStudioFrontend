@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.0.2",
-    "react-scripts": "^5.0.1"
+    "concurrently": "^7.0.0",
+    "express": "^4.17.1",
+    "cors": "^2.8.5",
+    "http-server": "^14.0.0"
   },
   "description": "",
   "browserslist": {
@@ -29,11 +29,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "dependencies": {
-    "concurrently": "^7.0.0",
-    "express": "^4.17.1",
-    "cors": "^2.8.5",
-    "http-server": "^14.0.0"
   }
 }
