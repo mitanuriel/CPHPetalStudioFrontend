@@ -183,23 +183,23 @@
     &copy; 2024 CPH Petal Studio. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
 </footer>
 
-script>
-document.addEventListener('DOMContentLoaded', function () {
-fetch('/api/user/profile', {
-method: 'GET',
-headers: {
-'Content-Type': 'application/json',
-'Authorization': 'Bearer ' + localStorage.getItem('jwt_token') // Assuming you store the JWT in localStorage
-}
-})
-.then(response => response.json())
-.then(user => {
-document.getElementById('username').textContent = user.username;
-document.getElementById('email').textContent = user.email;
-document.getElementById('createdAt').textContent = new Date(user.createdAt).toLocaleString();
-})
-.catch(error => console.error('Error fetching user profile:', error));
-});
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/user/profile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt_token') // Assuming you store the JWT in localStorage
+            }
+        })
+            .then(response => response.json())
+            .then(user => {
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('createdAt').textContent = new Date(user.createdAt).toLocaleString();
+            })
+            .catch(error => console.error('Error fetching user profile:', error));
+    });
 </script>
 
 </body>
