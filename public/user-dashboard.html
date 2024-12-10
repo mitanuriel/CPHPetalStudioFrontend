@@ -152,31 +152,31 @@
         <p><strong>Account Created:</strong> <span id="createdAt"></span></p>
     </div>
 </div>
-    <div class="section grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white shadow-md rounded">
-            <h2>Browse Bouquets</h2>
-            <p>Explore our beautiful selection of bouquets.</p>
-            <a href="/bouquets/list" class="bg-light-pink">View Bouquets</a>
-        </div>
-
-        <div class="bg-white shadow-md rounded">
-            <h2>Your Cart</h2>
-            <p>View and manage items in your cart.</p>
-            <a href="/cart" class="bg-medium-pink">Go to Cart</a>
-        </div>
-
-        <div class="bg-white shadow-md rounded">
-            <h2>Go to Shop</h2>
-            <p>Visit our main shop page to see all products.</p>
-            <a href="/shop" class="bg-dark-pink">Go to Shop</a>
-        </div>
+<div class="section grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white shadow-md rounded">
+        <h2>Browse Bouquets</h2>
+        <p>Explore our beautiful selection of bouquets.</p>
+        <a href="/bouquets/list" class="bg-light-pink">View Bouquets</a>
     </div>
 
-    <div class="section bg-white shadow-md rounded">
-        <h2>Account Management</h2>
-        <a href="/account/edit.html" class="bg-medium-pink">Edit Profile</a>
-        <a href="/account/change-password" class="bg-dark-pink">Change Password</a>
+    <div class="bg-white shadow-md rounded">
+        <h2>Your Cart</h2>
+        <p>View and manage items in your cart.</p>
+        <a href="/cart" class="bg-medium-pink">Go to Cart</a>
     </div>
+
+    <div class="bg-white shadow-md rounded">
+        <h2>Go to Shop</h2>
+        <p>Visit our main shop page to see all products.</p>
+        <a href="/shop" class="bg-dark-pink">Go to Shop</a>
+    </div>
+</div>
+
+<div class="section bg-white shadow-md rounded">
+    <h2>Account Management</h2>
+    <a href="/account/edit.html" class="bg-medium-pink">Edit Profile</a>
+    <a href="/account/change-password" class="bg-dark-pink">Change Password</a>
+</div>
 </div>
 
 <footer>
@@ -185,6 +185,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
         fetch('/api/user/profile', {
             method: 'GET',
             headers: {
@@ -194,13 +195,21 @@
         })
             .then(response => response.json())
             .then(user => {
+                // Update the profile fields with the returned user data
                 document.getElementById('username').textContent = user.username;
-                document.getElementById('email').textContent = user.email;
-                document.getElementById('createdAt').textContent = new Date(user.createdAt).toLocaleString();
+
+                // Check if email is available in the response
+                if (user.email) {
+                    document.getElementById('email').textContent = user.email;
+                }
+
+                // Check if createdAt is available in the response
+                if (user.createdAt) {
+                    document.getElementById('createdAt').textContent = new Date(user.createdAt).toLocaleString();
+                }
             })
             .catch(error => console.error('Error fetching user profile:', error));
-    });
-</script>
-</body>
 
-</html>
+    });
+
+</script>
