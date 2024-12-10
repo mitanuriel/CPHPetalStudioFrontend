@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Shop - Cart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="shop.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPH Petal Studio - Cart</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/shop.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="#">CPH Petal Studio</a>
+        <a class="navbar-brand" href="/">CPH Petal Studio</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link" href="/shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <button class="nav-link btn btn-link" type="submit">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -32,70 +40,39 @@
 </nav>
 
 <div class="container mt-5">
-
     <h1>Your Cart</h1>
 
-    <div class="row">
-        <!-- Cart Item 1 -->
-        <div class="col-md-12 mb-4">
-            <div class="card position-relative">
-                <div class="row g-0">
-                    <div class="col-md-3">
-                        <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-10/DEN_SOEDE_OMTANKE_HAND_173.jpg?itok=mwjwXwsK&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50" class="card-img" alt="Sweet Gesture">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                            <h5 class="card-title">Sweet Gesture</h5>
-                            <p class="card-text">A bouquet filled with vibrant and delicate flowers.</p>
-                            <p class="card-text">Price: <span class="text-success">$49.99</span></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <input type="number" class="form-control w-25" value="1" min="1">
-                                <button class="btn btn-danger">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Check if cart is empty -->
+    <div th:if="${#lists.isEmpty(cartItems)}" class="alert alert-info">
+        Your cart is empty. <a href="/shop">Continue shopping</a>
+    </div>
 
-        <!-- Cart Item 2 -->
-        <div class="col-md-12 mb-4">
+    <!-- Display cart items -->
+    <div th:unless="${#lists.isEmpty(cartItems)}" class="row">
+        <div th:each="item : ${cartItems}" class="col-md-12 mb-4">
             <div class="card position-relative">
                 <div class="row g-0">
                     <div class="col-md-3">
-                        <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-09/DEN_VENLIGE_VINTERVERSION_HAND_v_0.jpg?itok=hqgIZwlU&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50" class="card-img" alt="Pastel Charm">
+                        <img th:src="${item.bouquet.imageUrl}" class="card-img" th:alt="${item.bouquet.name}" />
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
-                            <h5 class="card-title">Pastel Charm</h5>
-                            <p class="card-text">Soft pastel flowers to brighten any day.</p>
-                            <p class="card-text">Price: <span class="text-success">$44.99</span></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <input type="number" class="form-control w-25" value="1" min="1">
-                                <button class="btn btn-danger">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            <h5 class="card-title" th:text="${item.bouquet.name}">Bouquet Name</h5>
+                            <p class="card-text" th:text="${item.bouquet.description}">Bouquet description</p>
+                            <p class="card-text">Price: <span class="text-success" th:text="${'$' + #numbers.formatDecimal(item.bouquet.price, 1, 2)}">$0.00</span></p>
 
-        <!-- Cart Item 3 -->
-        <div class="col-md-12 mb-4">
-            <div class="card position-relative">
-                <div class="row g-0">
-                    <div class="col-md-3">
-                        <img src="https://interflora.dk/sites/default/files/styles/full/public/2024-05/580_Den%20betaenksomme_M_H1.jpg?itok=LsVuEk9y&dpr=2&auto=webp&fit=cover&width=585&height=585&quality=50" class="card-img" alt="Blush Beauty">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                            <h5 class="card-title">Blush Beauty</h5>
-                            <p class="card-text">A blush-toned bouquet with stunning details.</p>
-                            <p class="card-text">Price: <span class="text-success">$39.99</span></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <input type="number" class="form-control w-25" value="1" min="1">
-                                <button class="btn btn-danger">Remove</button>
-                            </div>
+                            <!-- Update cart quantity form -->
+                            <form th:action="@{/cart/update}" method="post" class="d-flex justify-content-between align-items-center">
+                                <input type="hidden" name="itemId" th:value="${item.id}" />
+                                <input type="number" name="quantity" class="form-control w-25" th:value="${item.quantity}" min="1" />
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+
+                            <!-- Remove from cart form -->
+                            <form th:action="@{/cart/remove}" method="post" class="mt-2">
+                                <input type="hidden" name="itemId" th:value="${item.id}" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -103,18 +80,17 @@
         </div>
     </div>
 
-    <!-- Cart Total -->
-    <div class="row">
+    <!-- Display total and proceed to checkout -->
+    <div th:unless="${#lists.isEmpty(cartItems)}" class="row">
         <div class="col-md-12 text-end">
-            <h3>Total: <span class="text-success">$134.97</span></h3>
+            <h3>Total: <span class="text-success" th:text="${'$' + #numbers.formatDecimal(total, 1, 2)}">$0.00</span></h3>
             <a href="/checkout" class="btn btn-primary mt-3">Proceed to Checkout</a>
         </div>
     </div>
-
 </div>
 
 <footer class="mt-5">
-    &copy; 2024 Flower Shop. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
+    &copy; 2024 CPH Petal Studio. <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

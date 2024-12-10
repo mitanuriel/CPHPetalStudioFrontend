@@ -135,7 +135,6 @@
     </style>
 </head>
 
-<body>
 <div class="container">
     <h1>Welcome to Your Dashboard</h1>
 
@@ -151,6 +150,7 @@
         <!-- Display account creation date, formatted -->
         <p><strong>Account Created:</strong> <span th:text="${#dates.format(user.createdAt, 'yyyy-MM-dd')}"></span></p>
     </div>
+</div>
     <div class="section grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-white shadow-md rounded">
             <h2>Browse Bouquets</h2>

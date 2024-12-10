@@ -6,112 +6,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Add TailwindCSS for modern and responsive design -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #f9fafb;
         }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            font-size: 2rem;
-        }
-
-        .info {
-            background-color: #e7f3fe;
-            border-left: 6px solid #2196F3;
-            margin-bottom: 15px;
-            padding: 12px;
-            font-size: 1.1rem;
-        }
-
-        .info p {
-            margin: 5px 0;
-        }
-
-        .admin-actions {
-            margin-top: 30px;
-        }
-
-        .admin-actions ul {
-            padding: 0;
-            list-style-type: none;
-            font-size: 1.2rem;
-        }
-
-        .admin-actions li {
-            margin-bottom: 15px;
-        }
-
-        .admin-actions a {
-            display: inline-block;
-            background-color: #2196F3;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .admin-actions a:hover {
-            background-color: #1976D2;
-        }
-
     </style>
 </head>
 
-<body>
+<body class="font-sans">
 
-<div class="container">
-
-    <h1>Welcome to the Admin Dashboard</h1>
-
-    <!-- User Info Section -->
-    <div class="info">
-        <p><strong>Username:</strong> <span th:text="${username}"></span></p>
-        <p><strong>Roles:</strong> <span th:text="${roles}"></span></p>
-    </div>
-
-    <!-- Admin Introduction -->
-    <p class="text-center">This is the admin area. You have access to all administrative functions. Use the links below to manage the system:</p>
-
-    <!-- Admin Actions Section -->
-    <div class="admin-actions">
-        <ul>
-            <li>
-                <a href="/admin/manage-users">Manage Users</a>
-            </li>
-            <li>
-                <a href="/admin/view-orders">View All Orders</a>
-            </li>
-            <li>
-                <a href="/admin/manage-inventory">Manage Inventory</a>
-            </li>
-            <li>
-                <a href="/admin/reports">Generate Reports</a>
-            </li>
+<!-- Navigation Bar -->
+<nav class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold">Admin Dashboard</a>
+        <ul class="flex space-x-4">
+            <li><a href="/logout" class="hover:underline">Logout</a></li>
         </ul>
     </div>
+</nav>
 
+<!-- Main Container -->
+<div class="container mx-auto mt-10">
+    <div class="bg-white shadow-md rounded-lg p-8">
+        <!-- Welcome Section -->
+        <h1 class="text-2xl font-bold text-center mb-6">Welcome to the Admin Dashboard</h1>
+        <p class="text-center text-gray-600">Manage users, view orders, and perform administrative tasks efficiently.</p>
+
+        <!-- User Information -->
+        <div class="mt-8 bg-blue-50 p-4 rounded-lg shadow-inner">
+            <h2 class="text-xl font-semibold">User Information</h2>
+            <p><strong>Username:</strong> <span th:text="${username}">JohnDoe</span></p>
+            <p><strong>Roles:</strong> <span th:text="${roles}">Admin</span></p>
+        </div>
+
+        <!-- Admin Actions -->
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Admin Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="/admin/manage-users" class="block bg-blue-500 text-white text-center py-4 rounded-lg shadow hover:bg-blue-600 transition">
+                    Manage Users
+                </a>
+                <a href="/admin/view-orders" class="block bg-blue-500 text-white text-center py-4 rounded-lg shadow hover:bg-blue-600 transition">
+                    View All Orders
+                </a>
+                <a href="/admin/manage-inventory" class="block bg-blue-500 text-white text-center py-4 rounded-lg shadow hover:bg-blue-600 transition">
+                    Manage Inventory
+                </a>
+                <a href="/admin/reports" class="block bg-blue-500 text-white text-center py-4 rounded-lg shadow hover:bg-blue-600 transition">
+                    Generate Reports
+                </a>
+                <!-- New Button for Bouquets -->
+                <a href="/bouquets/list" class="block bg-blue-500 text-white text-center py-4 rounded-lg shadow hover:bg-blue-600 transition">
+                    View Bouquets
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
+<footer class="mt-10 text-center text-gray-500">
+    &copy; 2024 Admin Dashboard. All Rights Reserved.
+</footer>
 </body>
 
 </html>
