@@ -93,58 +93,59 @@
             .catch(error => console.error('Error fetching bouquets:', error));
 
         document.addEventListener('click', function (event) {
-    console.log('Click event:', event);
-    if (event.target && event.target.classList.contains('add-to-cart')) {
-        event.preventDefault();
-        const bouquetId = event.target.getAttribute('data-id');
-        console.log('Add to cart clicked, bouquetId:', bouquetId);
-        const token = localStorage.getItem('jwt_token');
-        if (!token) {
-            console.error('JWT token not found in localStorage');
-            alert('You must be logged in to add items to the cart.');
-            return;
-        }
-        console.log('JWT token:', token);
-        fetch('http://localhost:8080/api/cart/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-            body: JSON.stringify({ bouquetId, quantity: 1 })
-        })
-            .then(response => {
-                console.log('Add to cart response:', response);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            console.log('Click event:', event);
+            if (event.target && event.target.classList.contains('add-to-cart')) {
+                event.preventDefault();
+                const bouquetId = event.target.getAttribute('data-id');
+                console.log('Add to cart clicked, bouquetId:', bouquetId);
+                const token = localStorage.getItem('jwt_token');
+                if (!token) {
+                    console.error('JWT token not found in localStorage');
+                    alert('You must be logged in to add items to the cart.');
+                    return;
                 }
-                return response.text(); // Read the response as text
-            })
-            .then(text => {
-                console.log('Add to cart response text:', text);
-                if (text) {
-                    return JSON.parse(text); // Parse the text as JSON if it's not empty
-                } else {
-                    throw new Error('Empty response');
-                }
-            })
-            .then(data => {
-                console.log('Add to cart data:', data);
-                const successMessage = document.getElementById('success-message');
-                if (successMessage) {
-                    successMessage.style.display = 'block';
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 3000);
-                }
-                updateCartCount();
-            })
-            .catch(error => {
-                console.error('Error adding item to cart:', error.message);
-                alert('Error adding item to cart: ' + error.message);
-            });
-    }
-});
+                console.log('JWT token:', token);
+                fetch('http://localhost:8080/api/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ bouquetId, quantity: 1 })
+                })
+                    .then(response => {
+                        console.log('Add to cart response:', response);
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text(); // Read the response as text
+                    })
+                    .then(text => {
+                        console.log('Add to cart response text:', text);
+                        if (text) {
+                            return JSON.parse(text); // Parse the text as JSON if it's not empty
+                        } else {
+                            throw new Error('Empty response');
+                        }
+                    })
+                    .then(data => {
+                        console.log('Add to cart data:', data);
+                        const successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.display = 'block';
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 3000);
+                        }
+                        updateCartCount();
+                    })
+                    .catch(error => {
+                        console.error('Error adding item to cart:', error.message);
+                        alert('Error adding item to cart: ' + error.message);
+                    });
+            }
+        });
+
         function updateCartCount() {
             console.log('Updating cart count');
             fetch('http://localhost:8080/shop/cart/count', {
