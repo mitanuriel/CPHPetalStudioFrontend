@@ -41,7 +41,7 @@
                 <h2>Color Scheme</h2>
                 <div class="filter-buttons">
                     <a href="/shop?category=pink-red" class="filter-button">Pink/Red Nuances</a>
-                    <a href="/shop?category=multicolor" class="filter-button">Multicol ored</a>
+                    <a href="/shop?category=multicolor" class="filter-button">Multicolored</a>
                 </div>
             </div>
         </div>
@@ -61,19 +61,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded event fired');
-
-        fetch('http://localhost:8080/api/bouquets')
-            .then(response => {
-                console.log('Fetch bouquets response:', response);
-                return response.json();
-            })
+        fetch('/shop/bouquets')
+            .then(response => response.json())
             .then(data => {
-                console.log('Bouquets data:', data);
                 const bouquetList = document.getElementById('bouquet-list');
                 bouquetList.innerHTML = '';
                 data.forEach(bouquet => {
-                    console.log('Processing bouquet:', bouquet);
                     bouquetList.innerHTML += `
                         <div class="col-md-4 mb-4">
                             <div class="card product-card position-relative">
@@ -93,19 +86,15 @@
             .catch(error => console.error('Error fetching bouquets:', error));
 
         document.addEventListener('click', function (event) {
-            console.log('Click event:', event);
             if (event.target && event.target.classList.contains('add-to-cart')) {
                 event.preventDefault();
                 const bouquetId = event.target.getAttribute('data-id');
-                console.log('Add to cart clicked, bouquetId:', bouquetId);
                 const token = localStorage.getItem('jwt_token');
                 if (!token) {
-                    console.error('JWT token not found in localStorage');
                     alert('You must be logged in to add items to the cart.');
                     return;
                 }
-                console.log('JWT token:', token);
-                fetch('http://localhost:8080/shop/add', {
+                fetch('/shop/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -114,14 +103,12 @@
                     body: JSON.stringify({ bouquetId, quantity: 1 })
                 })
                     .then(response => {
-                        console.log('Add to cart response:', response);
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        return response.json(); // Read the response as JSON
+                        return response.json();
                     })
                     .then(data => {
-                        console.log('Add to cart data:', data);
                         const successMessage = document.getElementById('success-message');
                         if (successMessage) {
                             successMessage.style.display = 'block';
@@ -132,30 +119,24 @@
                         updateCartCount();
                     })
                     .catch(error => {
-                        console.error('Error adding item to cart:', error.message);
                         alert('Error adding item to cart: ' + error.message);
                     });
             }
         });
 
         function updateCartCount() {
-            console.log('Updating cart count');
-            fetch('http://localhost:8080/shop/cart/count', {
+            fetch('/shop/cart/count', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
                 }
             })
-                .then(response => {
-                    console.log('Cart count response:', response);
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    console.log('Cart count data:', data);
                     const cartCountElement = document.querySelector('.cart-count');
                     if (cartCountElement) {
-                        cartCountElement.textContent = data.count;
+                        cartCountElement.textContent = data;
                     }
                 })
                 .catch(error => console.error('Error fetching cart count:', error));
