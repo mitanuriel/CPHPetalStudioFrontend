@@ -41,7 +41,7 @@
                 <h2>Color Scheme</h2>
                 <div class="filter-buttons">
                     <a href="/shop?category=pink-red" class="filter-button">Pink/Red Nuances</a>
-                    <a href="/shop?category=multicolor" class="filter-button">Multicolored</a>
+                    <a href="/shop?category=multicolor" class="filter-button">Multicol ored</a>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                     return;
                 }
                 console.log('JWT token:', token);
-                fetch('http://localhost:8080/api/cart/add', {
+                fetch('http://localhost:8080/shop/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,15 +118,7 @@
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        return response.text(); // Read the response as text
-                    })
-                    .then(text => {
-                        console.log('Add to cart response text:', text);
-                        if (text) {
-                            return JSON.parse(text); // Parse the text as JSON if it's not empty
-                        } else {
-                            throw new Error('Empty response');
-                        }
+                        return response.json(); // Read the response as JSON
                     })
                     .then(data => {
                         console.log('Add to cart data:', data);
