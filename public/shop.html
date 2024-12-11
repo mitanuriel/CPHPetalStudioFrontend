@@ -98,11 +98,18 @@
         event.preventDefault();
         const bouquetId = event.target.getAttribute('data-id');
         console.log('Add to cart clicked, bouquetId:', bouquetId);
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            console.error('JWT token not found in localStorage');
+            alert('You must be logged in to add items to the cart.');
+            return;
+        }
+        console.log('JWT token:', token);
         fetch('http://localhost:8080/api/cart/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({ bouquetId, quantity: 1 })
         })
