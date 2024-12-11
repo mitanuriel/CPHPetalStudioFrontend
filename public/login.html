@@ -65,20 +65,26 @@
             body: JSON.stringify({ username, password }),
         })
             .then(response => {
-                console.log('Login response:', response);
+                console.log('Login response status:', response.status);
                 if (!response.ok) {
                     throw new Error('Login failed');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('Login data:', data);
+                console.log('Login response data:', data);
                 const token = data.token;
                 const role = data.role; // User's role from the API response
 
+                if (token) {
+                    console.log('JWT token received:', token);
+                } else {
+                    console.error('JWT token not received');
+                }
+
                 // Store the token for future use
                 localStorage.setItem('jwt_token', token);
-                console.log('JWT token stored:', token);
+                console.log('JWT token stored in localStorage:', localStorage.getItem('jwt_token'));
 
                 // Redirect to the correct dashboard based on the user's role
                 if (role === 'ROLE_ADMIN') {
