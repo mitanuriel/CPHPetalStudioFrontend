@@ -114,32 +114,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Displaying cart items...');
         let total = 0;
+
         const itemsHtml = cartItems.map(item => {
-            if (!item.bouquet) {
+            // Check if the necessary data exists for item (like bouquetName, etc.)
+            if (!item.bouquetName || !item.price || !item.quantity || !item.imageUrl) {
                 console.error('Bouquet is missing for item:', item);
-                return ''; // Skip this item
+                return ''; // Skip this item if necessary data is missing
             }
 
-            const subtotal = item.quantity * item.bouquet.price;
+            const subtotal = item.quantity * item.price;
             total += subtotal;
 
             return `
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-3">
-                            <img src="${item.bouquet.imageUrl}" class="card-img" alt="${item.bouquet.name}" />
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body">
-                                <h5 class="card-title">${item.bouquet.name}</h5>
-                                <p class="card-text">${item.bouquet.description}</p>
-                                <p class="card-text">Price: <span class="text-success">$${item.bouquet.price.toFixed(2)}</span></p>
-                                <p class="card-text">Quantity: ${item.quantity}</p>
-                            </div>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-3">
+                        <img src="${item.imageUrl}" class="card-img" alt="${item.bouquetName}" />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.bouquetName}</h5>
+                            <p class="card-text">${item.description}</p>
+                            <p class="card-text">Price: <span class="text-success">$${item.price.toFixed(2)}</span></p>
+                            <p class="card-text">Quantity: ${item.quantity}</p>
                         </div>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
         }).join(''); // Join items to prevent multiple divs
 
         cartItemsContainer.innerHTML = itemsHtml;
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartTotalContainer.style.display = 'block';
         emptyCartMessage.style.display = 'none';
     }
+
 
     fetchCartItems();
 });
