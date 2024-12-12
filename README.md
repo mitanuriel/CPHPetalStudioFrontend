@@ -34,7 +34,7 @@ http://localhost:5500
 ```
 Ensure your backend is running on the expected port (e.g.,
 `http://localhost:3000` or as configured).
-
+.
 
 ## Notes
 - The `--cors` flag allows the frontend to make requests to a backend
