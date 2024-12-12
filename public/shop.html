@@ -92,6 +92,8 @@
             })
             .catch(error => console.error('Error fetching bouquets:', error));
 
+
+        // Add event listener for the Add to Cart buttons on the page to add items to the cart
         document.addEventListener('click', function (event) {
             console.log('Click event:', event);
             if (event.target && event.target.classList.contains('add-to-cart')) {
@@ -104,8 +106,10 @@
                     alert('You must be logged in to add items to the cart.');
                     return;
                 }
+
+                // Add the item to the cart
                 console.log('JWT token:', token);
-                fetch('http://localhost:8080/shop/add', {
+                fetch('http://localhost:8080/shop/add-to-cart', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
