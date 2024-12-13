@@ -3,18 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "echo 'No build step needed for vanilla JS' && rm -rf build && mkdir build && cp -r $(ls | grep -v build) build"
+
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^7.0.0",
-    "express": "^4.17.1",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "http-server": "^14.0.0"
   },
   "description": "",
@@ -29,5 +28,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "shx": "^0.3.4"
   }
 }
